@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+    xmlns:context="http://www.springframework.org/schema/context"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans.xsd
+    http://www.springframework.org/schema/context
+    http://www.springframework.org/schema/context/spring-context.xsd">
+
+<!-- setter injection for literal values using properties fiel -->
+
+<context:property-placeholder location="classpath:literalValues.properties" />
+   
+    <!-- Define your beans here for dependencies -->
+ 
+    <bean id="myFortunes" class="com.springdemo.one.HappyFortuneService"> </bean>
+    
+    <bean id="myCoach" class="com.springdemo.one.BaseBallCoach">
+        <!-- constructor injection -->
+    
+    <constructor-arg ref="myFortunes" /> 
+    <!-- referencing here the HappyFortuneService using 
+     that ref="myFortunes" written above so that it points to the exact file --> 
+    
+    </bean>
+    
+  <bean id="myCoach1" class="com.springdemo.one.VolleyBallCoach" >    
+  <!-- constructor injection -->
+    
+    <constructor-arg ref="myFortunes" />
+   </bean> 
+  
+  <!-- injection for setter method -->
+  
+  <bean id="myCricketCoach" class="com.springdemo.one.CricketCoach">
+   
+  <!-- set up setter injection -->
+  <property name="fortuneService" ref="myFortunes" />
+  
+  <!-- inject literal values -->
+
+   <property name="emailAddress" value="${coach.email}"></property>
+   <property name="team" value="${coach.team}"></property>
+ 
+    </bean>
+ 
+</beans>
+
+
+
+
+
